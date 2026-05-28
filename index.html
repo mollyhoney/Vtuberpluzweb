@@ -15,7 +15,6 @@
       padding: 0;
       box-sizing: border-box;
       scroll-behavior: smooth;
-      /* บังคับให้ทุกองค์ประกอบใช้ฟอนต์แนวโค้งมนเป็นมิตร */
       font-family: 'Fredoka', 'Mitr', sans-serif;
     }
 
@@ -32,10 +31,7 @@
 
     body {
       background-color: var(--bg-dark);
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(77, 238, 234, 0.12) 0%, transparent 45%),
-        radial-gradient(circle at 90% 70%, rgba(255, 0, 212, 0.1) 0%, transparent 45%),
-        linear-gradient(145deg, var(--bg-purple) 0%, var(--bg-dark) 100%);
+      background-image: linear-gradient(145deg, var(--bg-purple) 0%, var(--bg-dark) 100%);
       background-attachment: fixed;
       color: var(--text-main);
       min-height: 100vh;
@@ -43,7 +39,57 @@
       line-height: 1.7;
     }
 
-    /* LOADING SCREEN (หน้าแรกเริ่มก่อนเข้าเว็บ อิงภาพที่ 1) */
+    /* ลูกเล่นพื้นหลัง (ดวงไฟเคลื่อนไหว) */
+    .bg-animated-orbs {
+      position: fixed;
+      top: 0; 
+      left: 0; 
+      width: 100vw; 
+      height: 100vh;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.25;
+      animation: floatOrb 12s infinite ease-in-out alternate;
+    }
+
+    .orb-1 {
+      width: 350px; height: 350px;
+      background: var(--primary);
+      top: 10%; left: 5%;
+    }
+
+    .orb-2 {
+      width: 450px; height: 450px;
+      background: var(--secondary);
+      bottom: 10%; right: 5%;
+      animation-duration: 18s;
+      animation-direction: alternate-reverse;
+    }
+
+    .orb-3 {
+      width: 250px; height: 250px;
+      background: #b166ff;
+      top: 40%; left: 40%;
+      animation-duration: 15s;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(50px, -50px) scale(1.15); }
+    }
+
+    /* จัดระยะฟอนต์ให้ชิดกันขึ้นตามบรีฟ (ลดช่องว่าง) */
+    h1, h2, h3, h4, h5, h6 {
+      letter-spacing: -0.3px;
+    }
+
     #loading-screen {
       position: fixed;
       inset: 0;
@@ -72,7 +118,7 @@
       color: var(--text-main);
       font-weight: 400;
       text-align: center;
-      letter-spacing: 0.5px;
+      letter-spacing: -0.3px; /* ปรับให้ฟอนต์ชิดขึ้น */
       text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     }
 
@@ -103,22 +149,11 @@
       to { width: 100%; }
     }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--bg-dark);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 100px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--primary);
-    }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-dark); }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 100px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
-    /* NAVBAR */
     nav {
       position: fixed;
       top: 0;
@@ -156,14 +191,10 @@
       font-size: 1.4rem;
       font-weight: 600;
       color: var(--text-main);
-      letter-spacing: 0.5px;
+      letter-spacing: -0.3px; /* ปรับให้ฟอนต์ชิดขึ้น */
     }
 
-    .nav-links {
-      display: flex;
-      gap: 10px;
-    }
-
+    .nav-links { display: flex; gap: 10px; }
     .nav-links button {
       background: transparent;
       border: 1px solid transparent;
@@ -188,7 +219,6 @@
       box-shadow: 0 0 20px rgba(77, 238, 234, 0.45);
     }
 
-    /* SECTION LAYOUT */
     section {
       min-height: 100vh;
       padding: 150px 24px 100px;
@@ -196,9 +226,7 @@
       animation: sectionFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    section.active {
-      display: block;
-    }
+    section.active { display: block; }
 
     @keyframes sectionFadeIn {
       from { opacity: 0; transform: translateY(12px); }
@@ -210,14 +238,10 @@
       margin: auto;
     }
 
-    /* HERO AREA (ปรับขนาดโลโก้ตามรูปเดโมที่ส่งมา) */
-    .hero {
-      text-align: center;
-      margin-bottom: 45px;
-    }
+    .hero { text-align: center; margin-bottom: 45px; }
 
     .hero-logo {
-      max-width: 420px; /* ขยายขนาดโลโก้ตรงกลางให้ใหญ่ขึ้นตามบรีฟ */
+      max-width: 420px;
       width: 100%;
       height: auto;
       filter: drop-shadow(0 10px 40px rgba(130, 60, 255, 0.35));
@@ -234,11 +258,10 @@
       color: var(--primary);
       margin-top: 15px;
       font-weight: 400;
-      letter-spacing: 0.5px;
+      letter-spacing: -0.3px; /* ปรับให้ฟอนต์ชิดขึ้น */
       text-shadow: 0 0 12px rgba(77, 238, 234, 0.3);
     }
 
-    /* PREMIUM GLASS CONTAINER */
     .glass-card {
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
@@ -267,11 +290,8 @@
       font-weight: 300;
     }
 
-    .story-box p:last-child {
-      margin-bottom: 0;
-    }
+    .story-box p:last-child { margin-bottom: 0; }
 
-    /* ACTION BOX */
     .highlight-box {
       margin-top: 40px;
       padding: 40px;
@@ -295,7 +315,6 @@
       font-weight: 300;
     }
 
-    /* FRIENDLY NEON BUTTON (ฟอนต์มนตามภาพที่ 4) */
     .neon-btn {
       display: inline-flex;
       align-items: center;
@@ -320,7 +339,6 @@
       box-shadow: 0 0 35px rgba(255, 0, 214, 0.55);
     }
 
-    /* AGREEMENT SECTION */
     .section-title {
       font-size: 2.2rem;
       font-weight: 500;
@@ -347,7 +365,7 @@
       transform: translateY(-5px);
       border-color: rgba(77, 238, 234, 0.25);
       background: rgba(255, 255, 255, 0.05);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.2.5);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
     }
 
     .agreement-card h3 {
@@ -379,7 +397,6 @@
       margin-bottom: 12px;
     }
 
-    /* EVENTS & ICONS SYSTEM (ถอดอิโมจิออกทั้งหมดแล้ว) */
     .event-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -410,17 +427,13 @@
       justify-content: center;
     }
 
-    .event-content {
-      padding: 24px;
-    }
-
+    .event-content { padding: 24px; }
     .event-content h3 {
       margin-bottom: 10px;
       color: var(--primary);
       font-size: 1.25rem;
       font-weight: 500;
     }
-
     .event-content p {
       font-size: 0.95rem;
       color: var(--text-sub);
@@ -428,7 +441,6 @@
       font-weight: 300;
     }
 
-    /* CONTACT COMPONENT */
     .contact-box {
       padding: 35px;
       border-radius: 28px;
@@ -445,10 +457,9 @@
       font-size: 1.4rem;
       font-weight: 500;
       color: var(--primary);
-      letter-spacing: 0.5px;
+      letter-spacing: -0.3px; /* ปรับให้ฟอนต์ชิดขึ้น */
     }
 
-    /* SOCIAL LINKS COMPONENT */
     .social-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -492,7 +503,6 @@
       font-weight: 300;
     }
 
-    /* FOOTER */
     footer {
       text-align: center;
       padding: 40px 24px;
@@ -500,47 +510,28 @@
       font-size: 0.9rem;
       border-top: 1px solid var(--glass-border);
       background: rgba(5, 3, 10, 0.6);
-      letter-spacing: 0.5px;
       font-weight: 300;
     }
 
-    /* RESPONSIVE LAYOUT */
     @media (max-width: 768px) {
-      .nav-container {
-        flex-direction: column;
-        gap: 14px;
-        padding: 16px;
-      }
-      .nav-links {
-        width: 100%;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-      .nav-links button {
-        padding: 6px 14px;
-        font-size: 0.85rem;
-      }
-      section {
-        padding-top: 190px;
-        padding-left: 16px;
-        padding-right: 16px;
-      }
-      .glass-card {
-        padding: 30px 24px;
-      }
-      .highlight-box, .discord-box {
-        padding: 35px 20px;
-      }
-      .contact-box {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
+      .nav-container { flex-direction: column; gap: 14px; padding: 16px; }
+      .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; }
+      .nav-links button { padding: 6px 14px; font-size: 0.85rem; }
+      section { padding-top: 190px; padding-left: 16px; padding-right: 16px; }
+      .glass-card { padding: 30px 24px; }
+      .highlight-box, .discord-box { padding: 35px 20px; }
+      .contact-box { flex-direction: column; align-items: center; text-align: center; }
     }
   </style>
 </head>
 
 <body>
+
+  <div class="bg-animated-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
 
   <div id="loading-screen">
     <img src="https://media.discordapp.net/attachments/1501559369777549432/1501593693428125826/Artboard_1_copy.png?ex=6a18fbda&is=6a17aa5a&hm=49e8fe614c0a1a9b1a96a530c10868f1eac0b64169e2cd98c3754750beb1e45f&=&format=webp&quality=lossless&width=968&height=968" alt="VTuberpluz Logo" class="load-logo">
@@ -632,7 +623,12 @@
       <div class="event-grid">
         <div class="event-card">
           <div class="event-icon-wrap">
-            <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 8px var(--primary));"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 8px var(--primary));">
+              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+              <line x1="12" x2="12" y1="19" y2="22"/>
+              <line x1="8" x2="16" y1="22" y2="22"/>
+            </svg>
           </div>
           <div class="event-content">
             <h3>Community Event</h3>
@@ -642,7 +638,14 @@
 
         <div class="event-card">
           <div class="event-icon-wrap">
-            <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#b166ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 8px #b166ff);"><path d="M4.5 16.5c-1.5 1.26-2.5 3.19-2.5 5.5s3 1 5-1c1.67-1.67 2.22-3.38 2.5-4.5"/><path d="M12 15c3.5-3.5 6.12-8.38 7-10 .88-1.63-.37-2.88-2-2-1.62.88-6.5 3.5-10 7"/><path d="M9 12H4.5M15 19.5V15"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#b166ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 8px #b166ff);">
+              <path d="M4.5 16.5c-1.5 1.26-2.5 3.19-2.5 5.5s3 1 5-1c1.67-1.67 2.22-3.38 2.5-4.5"/>
+              <path d="m19.5 4.5-3 3"/>
+              <path d="M12 15c3.5-3.5 6.12-8.38 7-10 .88-1.63-.37-2.88-2-2-1.62.88-6.5 3.5-10 7"/>
+              <path d="m8.5 8.5 3-3"/>
+              <path d="M9 12H4.5"/>
+              <path d="M15 19.5V15"/>
+            </svg>
           </div>
           <div class="event-content">
             <h3>Project Promotion</h3>
@@ -697,7 +700,7 @@
 
         <a href="https://www.youtube.com/@VtuberPluz" class="social-card" target="_blank" rel="noopener noreferrer">
           <div class="social-svg-container">
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="currentColor" style="color: #FF0000;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93 Pem.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="currentColor" style="color: #FF0000;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
           </div>
           <h3>YouTube</h3>
           <p>@VtuberPluz</p>
@@ -712,13 +715,12 @@
   </footer>
 
   <script>
-    // การจัดการหน้า Loading Screen ให้เฟดออกอย่างนุ่มนวลหลังโหลดเสร็จ
     window.addEventListener('DOMContentLoaded', () => {
       const loader = document.getElementById('loading-screen');
       setTimeout(() => {
         loader.style.opacity = '0';
         loader.style.visibility = 'hidden';
-      }, 2000); // ตั้งเวลาให้หน้าโหลดแสดงผล 2 วินาทีเพื่อให้ดูสวยงามมีมิติก่อนเข้าเว็บ
+      }, 2000);
     });
 
     const buttons = document.querySelectorAll('.tab-btn');
