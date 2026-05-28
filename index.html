@@ -1,161 +1,1008 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VTuberpluz - Welcome Community</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
 
-        body {
-            background: radial-gradient(circle at center, #2c1a4d 0%, #0f081d 100%);
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+  <meta charset="UTF-8" />
 
-        .container {
-            background: rgba(20, 10, 35, 0.75);
-            border: 2px solid #8a2be2;
-            box-shadow: 0 0 25px rgba(138, 43, 226, 0.5);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            max-width: 600px;
-            width: 100%;
-            padding: 40px;
-            text-align: center;
-        }
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-        .logo-area h1 {
-            font-size: 2.5rem;
-            color: #00ffff;
-            text-shadow: 0 0 10px #00ffff, 0 0 20px #8a2be2;
-            margin-bottom: 10px;
-        }
+  <title>VTuberpluz | Community Platform</title>
 
-        .subtitle {
-            color: #ff007f;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 30px;
-        }
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        .about-section {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            text-align: left;
-            border-left: 4px solid #00ffff;
-        }
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-        .about-section h2 {
-            color: #00ffff;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
+  <style>
 
-        .about-section p {
-            color: #ccc;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
 
-        .warning-box {
-            background: rgba(255, 0, 127, 0.1);
-            border: 1px solid #ff007f;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: left;
-            margin-bottom: 35px;
-            box-shadow: inset 0 0 10px rgba(255, 0, 127, 0.2);
-        }
+    :root{
+      --bg:#070710;
+      --bg2:#12061d;
+      --primary:#00e5ff;
+      --secondary:#ff00d4;
+      --text:#f4f4f4;
+      --glass:rgba(255,255,255,0.06);
+      --border:rgba(255,255,255,0.12);
+    }
 
-        .warning-box h3 {
-            color: #ff007f;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    body{
+      font-family:'Prompt',sans-serif;
 
-        .warning-box ul {
-            padding-left: 20px;
-            color: #e0e0e0;
-            font-size: 0.9rem;
-        }
+      background:
+        radial-gradient(circle at top left, rgba(255,0,212,0.12), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(0,229,255,0.10), transparent 35%),
+        linear-gradient(135deg,var(--bg2),var(--bg));
 
-        .warning-box li {
-            margin-bottom: 8px;
-            line-height: 1.5;
-        }
+      color:var(--text);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
 
-        .join-btn {
-            display: inline-block;
-            background: linear-gradient(45deg, #8a2be2, #ff007f);
-            color: white;
-            text-decoration: none;
-            padding: 15px 40px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 0, 127, 0.4);
-        }
+    body::before{
+      content:'';
+      position:fixed;
+      inset:0;
 
-        .join-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 25px rgba(0, 255, 255, 0.6);
-            background: linear-gradient(45deg, #00ffff, #8a2be2);
-        }
+      background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
 
-        .footer {
-            margin-top: 25px;
-            font-size: 0.8rem;
-            color: #666;
-        }
-    </style>
+      background-size:40px 40px;
+      z-index:-1;
+    }
+
+    /* NAVBAR */
+
+    nav{
+      position:fixed;
+      top:0;
+      width:100%;
+      z-index:999;
+
+      backdrop-filter:blur(12px);
+      background:rgba(8,8,20,0.75);
+
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-container{
+      max-width:1300px;
+      margin:auto;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      padding:18px 24px;
+    }
+
+    .logo{
+      font-family:'Orbitron',sans-serif;
+      font-size:1.5rem;
+      font-weight:900;
+
+      color:var(--primary);
+
+      text-shadow:
+        0 0 8px var(--primary),
+        0 0 18px var(--primary);
+
+      letter-spacing:2px;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .nav-links button{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.08);
+
+      color:#fff;
+
+      padding:10px 16px;
+      border-radius:12px;
+
+      cursor:pointer;
+      transition:0.3s;
+
+      font-family:'Prompt',sans-serif;
+    }
+
+    .nav-links button:hover,
+    .nav-links button.active{
+
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+
+      color:#000;
+
+      box-shadow:
+        0 0 12px rgba(0,229,255,0.45),
+        0 0 22px rgba(255,0,212,0.35);
+
+      transform:translateY(-2px);
+      font-weight:700;
+    }
+
+    /* SECTION */
+
+    section{
+      min-height:100vh;
+      padding:130px 24px 80px;
+
+      display:none;
+      animation:fade 0.5s ease;
+    }
+
+    section.active{
+      display:block;
+    }
+
+    @keyframes fade{
+
+      from{
+        opacity:0;
+        transform:translateY(10px);
+      }
+
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    .container{
+      max-width:1200px;
+      margin:auto;
+    }
+
+    /* HERO */
+
+    .hero{
+      text-align:center;
+      margin-bottom:60px;
+    }
+
+    .hero h1{
+      font-family:'Orbitron',sans-serif;
+
+      font-size:clamp(3rem,7vw,6rem);
+
+      color:#fff;
+
+      line-height:1;
+      margin-bottom:18px;
+
+      text-shadow:
+        0 0 12px var(--primary),
+        0 0 24px var(--primary),
+        0 0 42px var(--secondary);
+    }
+
+    .hero p{
+      color:#d5d5d5;
+      font-size:1.1rem;
+
+      letter-spacing:2px;
+      text-transform:uppercase;
+    }
+
+    .glass-card{
+      background:var(--glass);
+
+      border:1px solid var(--border);
+
+      border-radius:24px;
+      padding:32px;
+
+      backdrop-filter:blur(14px);
+
+      box-shadow:
+        0 0 20px rgba(0,229,255,0.08),
+        0 0 40px rgba(255,0,212,0.05);
+    }
+
+    .story-box{
+      line-height:1.9;
+      font-size:1.05rem;
+      color:#eaeaea;
+    }
+
+    .story-box h2{
+      margin-bottom:18px;
+      font-size:2rem;
+
+      color:var(--primary);
+
+      text-shadow:0 0 10px rgba(0,229,255,0.5);
+    }
+
+    .highlight-box{
+      margin-top:40px;
+      padding:35px;
+
+      border-radius:24px;
+
+      background:
+      linear-gradient(
+      135deg,
+      rgba(0,229,255,0.12),
+      rgba(255,0,212,0.12));
+
+      border:1px solid rgba(255,255,255,0.15);
+
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .highlight-box::before{
+      content:'';
+      position:absolute;
+
+      width:220px;
+      height:220px;
+
+      background:rgba(0,229,255,0.18);
+
+      filter:blur(60px);
+
+      top:-50px;
+      left:-50px;
+    }
+
+    .highlight-box h3{
+      font-size:2rem;
+      margin-bottom:14px;
+
+      position:relative;
+      z-index:1;
+    }
+
+    .highlight-box p{
+      margin-bottom:24px;
+
+      position:relative;
+      z-index:1;
+    }
+
+    .neon-btn{
+      display:inline-block;
+
+      padding:14px 28px;
+
+      border:none;
+      border-radius:14px;
+
+      cursor:pointer;
+      text-decoration:none;
+
+      font-weight:700;
+      color:#000;
+
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+
+      transition:0.3s;
+
+      box-shadow:
+        0 0 18px rgba(0,229,255,0.5),
+        0 0 28px rgba(255,0,212,0.35);
+
+      position:relative;
+      z-index:1;
+    }
+
+    .neon-btn:hover{
+      transform:translateY(-4px) scale(1.02);
+
+      box-shadow:
+        0 0 25px rgba(0,229,255,0.8),
+        0 0 45px rgba(255,0,212,0.5);
+    }
+
+    /* AGREEMENT */
+
+    .section-title{
+      font-size:2.6rem;
+      margin-bottom:35px;
+
+      font-family:'Orbitron',sans-serif;
+
+      color:#fff;
+
+      text-shadow:0 0 10px rgba(255,0,212,0.4);
+    }
+
+    .agreement-grid{
+      display:grid;
+
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+      gap:24px;
+      margin-bottom:40px;
+    }
+
+    .agreement-card{
+      padding:28px;
+
+      border-radius:22px;
+
+      background:var(--glass);
+
+      border:1px solid rgba(255,255,255,0.08);
+
+      transition:0.3s;
+    }
+
+    .agreement-card:hover{
+      transform:translateY(-6px);
+
+      border-color:rgba(0,229,255,0.4);
+
+      box-shadow:0 0 20px rgba(0,229,255,0.12);
+    }
+
+    .agreement-card h3{
+      color:var(--primary);
+      margin-bottom:14px;
+    }
+
+    .agreement-card p{
+      line-height:1.8;
+      color:#ddd;
+    }
+
+    .discord-box{
+      text-align:center;
+
+      padding:45px;
+
+      border-radius:26px;
+
+      background:
+      linear-gradient(
+      135deg,
+      rgba(255,0,212,0.15),
+      rgba(0,229,255,0.10));
+
+      border:1px solid rgba(255,255,255,0.15);
+    }
+
+    .discord-box h2{
+      margin-bottom:18px;
+      font-size:2rem;
+    }
+
+    /* EVENT GRID */
+
+    .event-grid{
+      display:grid;
+
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+      gap:24px;
+      margin-bottom:50px;
+    }
+
+    .event-card{
+      border-radius:24px;
+      overflow:hidden;
+
+      background:rgba(255,255,255,0.04);
+
+      border:1px solid rgba(255,255,255,0.08);
+
+      transition:0.35s;
+    }
+
+    .event-card:hover{
+      transform:translateY(-8px);
+
+      box-shadow:
+        0 0 24px rgba(0,229,255,0.15),
+        0 0 34px rgba(255,0,212,0.1);
+    }
+
+    .event-image{
+      height:180px;
+
+      background:
+      linear-gradient(
+      135deg,
+      rgba(0,229,255,0.35),
+      rgba(255,0,212,0.25));
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      font-size:3rem;
+    }
+
+    .event-content{
+      padding:22px;
+    }
+
+    .event-content h3{
+      margin-bottom:10px;
+      color:var(--primary);
+    }
+
+    .event-content p{
+      line-height:1.7;
+      color:#ddd;
+    }
+
+    /* CONTACT */
+
+    .contact-box{
+      margin-top:20px;
+      padding:30px;
+
+      border-radius:24px;
+
+      background:var(--glass);
+
+      border:1px solid rgba(255,255,255,0.1);
+
+      display:flex;
+      flex-wrap:wrap;
+
+      gap:18px;
+
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .email{
+      font-size:1.1rem;
+      color:var(--primary);
+
+      word-break:break-word;
+    }
+
+    /* SOCIAL */
+
+    .social-grid{
+      display:grid;
+
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+      gap:24px;
+    }
+
+    .social-card{
+      text-decoration:none;
+      color:#fff;
+
+      padding:36px 24px;
+
+      border-radius:26px;
+
+      text-align:center;
+
+      background:rgba(255,255,255,0.04);
+
+      border:1px solid rgba(255,255,255,0.08);
+
+      transition:0.35s;
+
+      position:relative;
+      overflow:hidden;
+    }
+
+    .social-card::before{
+      content:'';
+      position:absolute;
+      inset:0;
+
+      background:linear-gradient(
+      135deg,
+      rgba(0,229,255,0.12),
+      rgba(255,0,212,0.12));
+
+      opacity:0;
+      transition:0.3s;
+    }
+
+    .social-card:hover::before{
+      opacity:1;
+    }
+
+    .social-card:hover{
+      transform:translateY(-8px);
+
+      border-color:rgba(0,229,255,0.4);
+
+      box-shadow:
+        0 0 28px rgba(0,229,255,0.18),
+        0 0 34px rgba(255,0,212,0.14);
+    }
+
+    .social-icon{
+      font-size:3rem;
+      margin-bottom:18px;
+
+      position:relative;
+      z-index:1;
+    }
+
+    .social-card h3,
+    .social-card p{
+      position:relative;
+      z-index:1;
+    }
+
+    footer{
+      text-align:center;
+      padding:28px;
+
+      color:#9c9c9c;
+
+      border-top:1px solid rgba(255,255,255,0.08);
+
+      background:rgba(0,0,0,0.2);
+
+      line-height:1.8;
+    }
+
+    @media(max-width:768px){
+
+      .nav-container{
+        flex-direction:column;
+        gap:16px;
+      }
+
+      section{
+        padding-top:180px;
+      }
+
+      .hero h1{
+        font-size:3rem;
+      }
+
+      .section-title{
+        font-size:2rem;
+      }
+
+      .contact-box{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+
+  </style>
+
 </head>
+
 <body>
 
-    <div class="container">
-        <div class="logo-area">
-            <h1>VTuberpluz</h1>
-            <div class="subtitle">Community Platform</div>
-        </div>
+  <!-- NAVIGATION -->
 
-        <div class="about-section">
-            <h2>ทำความรู้จักกับเรา</h2>
-            <p>VTuberpluz คือพื้นที่คอมมูนิตี้ที่สร้างขึ้นเพื่อเชื่อมต่อและสนับสนุนเหล่า VTuber รวมถึงทีมงานหลังบ้าน ครีเอเตอร์ และผู้ที่มีส่วนเกี่ยวข้องในวงการ เพื่อพูดคุย แลกเปลี่ยนประสบการณ์ และสร้างสรรค์ผลงานร่วมกัน</p>
-        </div>
+  <nav>
 
-        <div class="warning-box">
-            <h3>⚠️ ข้อตกลงและความยินยอมก่อนเข้า Discord</h3>
-            <ul>
-                <li><strong>พื้นที่สาธารณะของคนทำงาน:</strong> โปรดรับทราบว่าภายใน Discord นี้จะมีบุคคลทั่วไป ทีมงานหลังบ้าน และผู้ทำงานเกี่ยวกับ VTuber อยู่ร่วมด้วย</li>
-                <li><strong>การรักษาความเป็นส่วนตัว:</strong> หากคุณเป็น VTuber และกังวลเรื่องความเป็นส่วนตัวหรือต้องการแยกชีวิตส่วนตัวออกจากงานอย่างเด็ดขาด <strong>"แนะนำให้ใช้แอคเคาท์รอง"</strong> ในการเข้าร่วม</li>
-                <li><strong>การยอมรับความเสี่ยง:</strong> หากคุณเลือกเข้าใช้งานด้วยแอคเคาท์หลัก ทางคอมมูจะถือว่าคุณรับทราบและ <strong>"ยินยอมรับความเสี่ยง"</strong> ในเรื่องข้อมูลส่วนตัวที่อาจเกิดขึ้นแล้ว</li>
-            </ul>
-        </div>
+    <div class="nav-container">
 
-        <a href="https://discord.gg/vtuberpluz" class="join-btn" target="_blank">
-            ฉันยอมรับเงื่อนไขและเข้าสู่ Discord
-        </a>
+      <div class="logo">
+        VTuberpluz
+      </div>
 
-        <div class="footer">
-            © 2026 VTuberpluz. All Rights Reserved.
-        </div>
+      <div class="nav-links">
+
+        <button class="tab-btn active" data-tab="home">
+          Home
+        </button>
+
+        <button class="tab-btn" data-tab="gatekeeper">
+          Discord Access
+        </button>
+
+        <button class="tab-btn" data-tab="events">
+          Events & Contact
+        </button>
+
+        <button class="tab-btn" data-tab="social">
+          Social Links
+        </button>
+
+      </div>
+
     </div>
 
+  </nav>
+
+  <!-- HOME -->
+
+  <section id="home" class="active">
+
+    <div class="container">
+
+      <div class="hero">
+
+        <h1>VTuberpluz</h1>
+
+        <p>Community Platform</p>
+
+      </div>
+
+      <div class="glass-card story-box">
+
+        <h2>ที่มาของคอมมูนิตี้</h2>
+
+        <p>
+          VTuberpluz คือพื้นที่คอมมูนิตี้ที่ถูกสร้างขึ้นมาเพื่อเป็นศูนย์กลางในการเชื่อมต่อ
+          สนับสนุน และเปิดโอกาสให้ผู้คนในวงการ VTuber ได้มาพบเจอกันอย่างอิสระ
+          ไม่ว่าจะเป็น VTuber อินดี้ ทีมงานหลังบ้าน นักตัดต่อ กราฟิกดีไซเนอร์
+          นักวาด นักทำเพลง โปรแกรมเมอร์ ผู้จัดการโปรเจกต์
+          หรือแม้แต่แฟนคลับที่อยากมีส่วนร่วมในการผลักดันวงการนี้ให้เติบโตไปด้วยกัน
+        </p>
+
+        <br>
+
+        <p>
+          เราเชื่อว่าคอมมูนิตี้ที่ดีไม่ใช่เพียงพื้นที่พูดคุย
+          แต่คือ “พื้นที่ที่ทุกคนสามารถสร้างโอกาสใหม่ร่วมกันได้”
+          ไม่ว่าจะเป็นการแชร์ประสบการณ์ การหาเพื่อนร่วมทีม
+          การโปรโมตผลงาน การร่วมสร้างอีเวนต์
+          หรือแม้แต่การช่วยเหลือกันในวันที่ต้องการคำแนะนำ
+          VTuberpluz จึงถูกออกแบบมาให้เป็นเหมือนศูนย์รวมของคนที่รักในความสร้างสรรค์
+          และอยากเติบโตไปพร้อมกันในโลกเสมือนจริงแห่งนี้
+        </p>
+
+        <br>
+
+        <p>
+          ภายในคอมมูแห่งนี้ เราให้ความสำคัญกับบรรยากาศที่เป็นมิตร ปลอดภัย
+          และให้เกียรติซึ่งกันและกัน พร้อมเปิดพื้นที่สำหรับการทดลองไอเดียใหม่ๆ
+          และการสร้างคอนเนกชันที่อาจกลายเป็นโปรเจกต์ใหญ่ในอนาคต
+          เพราะเราเชื่อว่าเบื้องหลัง VTuber ทุกคน
+          ล้วนมีทีม มีความพยายาม และมีเรื่องราวที่น่าสนับสนุนเสมอ
+        </p>
+
+      </div>
+
+      <div class="highlight-box">
+
+        <h3>
+          สนใจเข้าร่วมคอมมูเราใน Discord ไหม?
+        </h3>
+
+        <p>
+          ก่อนเข้าสู่เซิร์ฟเวอร์ Discord ของ VTuberpluz
+          กรุณาอ่านข้อตกลงและเงื่อนไขเพื่อความเข้าใจร่วมกันของทุกฝ่าย
+        </p>
+
+        <button class="neon-btn goto-gatekeeper">
+          ไปยังข้อตกลงการเข้าดิสคอร์ด
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- GATEKEEPER -->
+
+  <section id="gatekeeper">
+
+    <div class="container">
+
+      <h1 class="section-title">
+        ⚠️ ข้อตกลงและความยินยอมก่อนเข้า Discord
+      </h1>
+
+      <div class="agreement-grid">
+
+        <div class="agreement-card">
+
+          <h3>พื้นที่สาธารณะของคนทำงาน</h3>
+
+          <p>
+            โปรดรับทราบว่าภายใน Discord ของ VTuberpluz
+            จะมีทั้งบุคคลทั่วไป ทีมงานหลังบ้าน ครีเอเตอร์
+            และผู้ที่ทำงานเกี่ยวข้องกับวงการ VTuber อยู่ร่วมกัน
+            การพูดคุย การแชร์ผลงาน หรือการเข้าร่วมกิจกรรมต่างๆ
+            ถือเป็นพื้นที่คอมมูนิตี้แบบเปิด
+          </p>
+
+        </div>
+
+        <div class="agreement-card">
+
+          <h3>การรักษาความเป็นส่วนตัว</h3>
+
+          <p>
+            หากคุณเป็น VTuber หรือบุคคลที่ต้องการแยกตัวตนส่วนตัวออกจากงาน
+            ทางคอมมูแนะนำให้ใช้แอคเคาท์รองในการเข้าร่วม
+            เพื่อช่วยลดความเสี่ยงด้านข้อมูลส่วนตัว
+            และป้องกันการเชื่อมโยงตัวตนโดยไม่ตั้งใจ
+          </p>
+
+        </div>
+
+        <div class="agreement-card">
+
+          <h3>การยอมรับความเสี่ยง</h3>
+
+          <p>
+            หากคุณเลือกใช้งานด้วยแอคเคาท์หลัก
+            ทางคอมมูนิตี้จะถือว่าคุณรับทราบ
+            และยินยอมต่อความเสี่ยงที่อาจเกิดขึ้นเกี่ยวกับข้อมูลส่วนตัวแล้ว
+            โปรดใช้งานด้วยความระมัดระวัง
+          </p>
+
+        </div>
+
+      </div>
+
+      <div class="discord-box">
+
+        <h2>
+          พร้อมเข้าสู่ Community แล้วหรือยัง?
+        </h2>
+
+        <p style="margin-bottom:25px;">
+          กรุณาอ่านและทำความเข้าใจเงื่อนไขทั้งหมดก่อนเข้าร่วมเซิร์ฟเวอร์
+        </p>
+
+        <a class="neon-btn"
+           href="https://discord.gg/vtuberpluz"
+           target="_blank"
+           rel="noopener noreferrer">
+
+          ฉันยอมรับเงื่อนไขและเข้าสู่ Discord
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- EVENTS -->
+
+  <section id="events">
+
+    <div class="container">
+
+      <h1 class="section-title">
+        Events & Contact
+      </h1>
+
+      <div class="event-grid">
+
+        <div class="event-card">
+
+          <div class="event-image">🎤</div>
+
+          <div class="event-content">
+
+            <h3>Community Event</h3>
+
+            <p>
+              พื้นที่สำหรับกิจกรรมรวมตัวของสมาชิก
+              Collaboration หรือกิจกรรมพิเศษภายในคอมมู
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="event-card">
+
+          <div class="event-image">🚀</div>
+
+          <div class="event-content">
+
+            <h3>Project Promotion</h3>
+
+            <p>
+              พื้นที่โปรโมตโปรเจกต์ VTuber งานเพลง
+              งานออกแบบ หรือผลงานสร้างสรรค์ต่างๆ
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="event-card">
+
+          <div class="event-image">✨</div>
+
+          <div class="event-content">
+
+            <h3>Future Activities</h3>
+
+            <p>
+              รองรับข่าวสาร อัปเดตอีเวนต์
+              และกิจกรรมใหม่ๆ ของคอมมูนิตี้ในอนาคต
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="contact-box">
+
+        <div>
+
+          <h2 style="margin-bottom:10px;">
+            ติดต่อเรา
+          </h2>
+
+          <div class="email" id="emailText">
+            vtuberpluz@gmail.com
+          </div>
+
+        </div>
+
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+
+          <button class="neon-btn" onclick="copyEmail()">
+            คัดลอกอีเมล
+          </button>
+
+          <a class="neon-btn"
+             href="mailto:vtuberpluz@gmail.com">
+
+            ส่งอีเมล
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SOCIAL -->
+
+  <section id="social">
+
+    <div class="container">
+
+      <h1 class="section-title">
+        Social Links
+      </h1>
+
+      <div class="social-grid">
+
+        <!-- X -->
+
+        <a href="https://x.com/VtuberPluz"
+           class="social-card"
+           target="_blank"
+           rel="noopener noreferrer">
+
+          <div class="social-icon">𝕏</div>
+
+          <h3>X / Twitter</h3>
+
+          <p>@VtuberPluz</p>
+
+        </a>
+
+        <!-- FACEBOOK -->
+
+        <a href="https://www.facebook.com/profile.php?id=61587502204128&locale=th_TH"
+           class="social-card"
+           target="_blank"
+           rel="noopener noreferrer">
+
+          <div class="social-icon">📘</div>
+
+          <h3>Facebook</h3>
+
+          <p>Vtuber Pluz</p>
+
+        </a>
+
+        <!-- YOUTUBE -->
+
+        <a href="https://www.youtube.com/@VtuberPluz"
+           class="social-card"
+           target="_blank"
+           rel="noopener noreferrer">
+
+          <div class="social-icon">▶</div>
+
+          <h3>YouTube</h3>
+
+          <p>@VtuberPluz</p>
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <footer>
+
+    © 2026 VTuberpluz Community Platform
+    <br>
+    Official VTuber Community Hub
+
+  </footer>
+
+  <script>
+
+    const buttons = document.querySelectorAll('.tab-btn');
+
+    const sections = document.querySelectorAll('section');
+
+    function switchTab(tabId){
+
+      sections.forEach(section=>{
+        section.classList.remove('active');
+      });
+
+      buttons.forEach(button=>{
+        button.classList.remove('active');
+      });
+
+      document.getElementById(tabId)
+      .classList.add('active');
+
+      document.querySelector(`[data-tab="${tabId}"]`)
+      .classList.add('active');
+
+      window.scrollTo({
+        top:0,
+        behavior:'smooth'
+      });
+
+    }
+
+    buttons.forEach(button=>{
+
+      button.addEventListener('click',()=>{
+
+        switchTab(button.dataset.tab);
+
+      });
+
+    });
+
+    document.querySelector('.goto-gatekeeper')
+
+    .addEventListener('click',()=>{
+
+      switchTab('gatekeeper');
+
+    });
+
+    function copyEmail(){
+
+      const email =
+      document.getElementById('emailText').innerText;
+
+      navigator.clipboard.writeText(email);
+
+      alert('คัดลอกอีเมลแล้ว: ' + email);
+
+    }
+
+  </script>
+
 </body>
+
 </html>
