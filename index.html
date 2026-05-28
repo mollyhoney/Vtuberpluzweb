@@ -1,517 +1,850 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VTuberpluz | Community Platform</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;700&family=Itim&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>VtuberPluz | Community Platform</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- ฟอนต์แนวน่ารัก มน อ่านง่าย -->
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+
+    /* ดูดสีจากภาพ gradient */
+    --blue:#7aa2ff;
+    --purple:#b66dff;
+    --pink:#f48bff;
+
+    --bg:#12091d;
+    --bg2:#1b1028;
+
+    --white:#ffffff;
+    --text:#f3f3f3;
+    --soft:#d4d4d4;
+
+    --glass:rgba(255,255,255,0.06);
+    --border:rgba(255,255,255,0.10);
+
+    --gradient:
+    linear-gradient(
+    135deg,
+    var(--blue),
+    var(--purple),
+    var(--pink));
+
+}
+
+body{
+
+    font-family:'Prompt',sans-serif;
+
+    color:var(--text);
+
+    background:
+    radial-gradient(circle at top left, rgba(122,162,255,.15), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(244,139,255,.14), transparent 30%),
+    linear-gradient(135deg,var(--bg2),var(--bg));
+
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* ลายพื้นหลัง */
+
+body::before{
+
+    content:'';
+    position:fixed;
+    inset:0;
+
+    background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+
+    background-size:40px 40px;
+
+    z-index:-2;
+}
+
+/* glow background */
+
+body::after{
+
+    content:'';
+
+    position:fixed;
+    inset:0;
+
+    background:
+    radial-gradient(circle at 20% 20%, rgba(122,162,255,.15), transparent 20%),
+    radial-gradient(circle at 80% 30%, rgba(244,139,255,.15), transparent 20%),
+    radial-gradient(circle at 50% 80%, rgba(182,109,255,.15), transparent 20%);
+
+    filter:blur(60px);
+
+    z-index:-1;
+}
+
+/* ======================
+   FLOATING JOIN BAR
+====================== */
+
+.join-banner{
+
+    position:fixed;
+
+    top:18px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:min(95%, 980px);
+
+    z-index:9999;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+
+    padding:14px 18px;
+
+    border-radius:24px;
+
+    backdrop-filter:blur(16px);
+
+    background:rgba(17,10,28,.72);
+
+    border:1px solid rgba(255,255,255,.10);
+
+    box-shadow:
+    0 10px 40px rgba(0,0,0,.25);
+}
+
+.join-left{
+
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.join-logo{
+
+    width:60px;
+    height:60px;
+
+    object-fit:contain;
+}
+
+.join-text h3{
+
+    font-family:'Fredoka',sans-serif;
+
+    font-size:1.1rem;
+    margin-bottom:3px;
+}
+
+.join-text p{
+
+    font-size:.9rem;
+    color:#d7d7d7;
+}
+
+.join-btn{
+
+    border:none;
+    cursor:pointer;
+
+    padding:14px 24px;
+
+    border-radius:16px;
+
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+
+    color:#fff;
+
+    background:var(--gradient);
+
+    box-shadow:
+    0 0 25px rgba(182,109,255,.35);
+
+    transition:.25s;
+}
+
+.join-btn:hover{
+
+    transform:translateY(-3px) scale(1.02);
+}
+
+/* ======================
+   NAVBAR
+====================== */
+
+nav{
+
+    position:fixed;
+    top:110px;
+
+    width:100%;
+    z-index:999;
+}
+
+.nav-wrap{
+
+    width:min(1200px,95%);
+    margin:auto;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 24px;
+
+    border-radius:28px;
+
+    background:rgba(18,9,29,.75);
+
+    backdrop-filter:blur(16px);
+
+    border:1px solid rgba(255,255,255,.08);
+}
+
+/* โลโก้ */
+
+.logo{
+
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.logo img{
+
+    width:68px;
+    object-fit:contain;
+}
+
+.logo-text{
+
+    font-family:'Fredoka',sans-serif;
+
+    font-size:1.6rem;
+    font-weight:700;
+
+    color:#fff;
+}
+
+.logo-text span{
+
+    background:var(--gradient);
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* menu */
+
+.nav-links{
+
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.nav-links button{
+
+    border:none;
+    cursor:pointer;
+
+    padding:12px 18px;
+
+    border-radius:14px;
+
+    background:transparent;
+
+    color:#fff;
+
+    font-family:'Fredoka',sans-serif;
+    font-size:1rem;
+
+    transition:.25s;
+}
+
+.nav-links button:hover,
+.nav-links button.active{
+
+    background:var(--gradient);
+
+    box-shadow:
+    0 0 20px rgba(182,109,255,.25);
+
+    transform:translateY(-2px);
+}
+
+/* ======================
+   SECTION
+====================== */
+
+section{
+
+    padding:240px 24px 100px;
+    min-height:100vh;
+
+    display:none;
+}
+
+section.active{
+    display:block;
+}
+
+.container{
+
+    width:min(1200px,100%);
+    margin:auto;
+}
+
+/* ======================
+   HERO
+====================== */
+
+.hero{
+
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:40px;
+    align-items:center;
+}
+
+/* ซ้าย */
+
+.hero-text h1{
+
+    font-family:'Fredoka',sans-serif;
+
+    font-size:clamp(3rem,7vw,6rem);
+
+    line-height:1;
+
+    margin-bottom:20px;
+}
+
+.hero-text h1 span{
+
+    background:var(--gradient);
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero-text p{
+
+    color:#d6d6d6;
+
+    line-height:1.9;
+
+    font-size:1.05rem;
+
+    margin-bottom:30px;
+}
+
+.hero-buttons{
+
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+}
+
+.primary-btn{
+
+    border:none;
+    cursor:pointer;
+
+    padding:16px 26px;
+
+    border-radius:18px;
+
+    color:#fff;
+
+    font-family:'Fredoka',sans-serif;
+    font-size:1rem;
+    font-weight:600;
+
+    background:var(--gradient);
+
+    transition:.25s;
+}
+
+.primary-btn:hover{
+
+    transform:translateY(-4px);
+}
+
+.secondary-btn{
+
+    border:1px solid rgba(255,255,255,.1);
+
+    padding:16px 24px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.04);
+
+    color:#fff;
+
+    cursor:pointer;
+
+    font-family:'Fredoka',sans-serif;
+}
+
+/* ขวา */
+
+.hero-card-wrap{
+
+    display:flex;
+    gap:18px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.v-card{
+
+    width:190px;
+
+    padding:14px;
+
+    border-radius:28px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(16px);
+
+    transition:.3s;
+}
+
+.v-card:hover{
+
+    transform:translateY(-8px);
+}
+
+.v-card img{
+
+    width:100%;
+    height:240px;
+
+    object-fit:cover;
+
+    border-radius:20px;
+}
+
+.v-card h3{
+
+    margin-top:14px;
+
+    font-family:'Fredoka',sans-serif;
+
+    font-size:1.15rem;
+}
+
+.v-card p{
+
+    color:#cfcfcf;
+    margin-top:6px;
+}
+
+/* ======================
+   GLASS
+====================== */
+
+.glass{
+
+    margin-top:70px;
+
+    padding:36px;
+
+    border-radius:30px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(16px);
+}
+
+.glass h2{
+
+    font-family:'Fredoka',sans-serif;
+
+    font-size:2rem;
+
+    margin-bottom:20px;
+}
+
+.glass p{
+
+    line-height:2;
+    color:#e0e0e0;
+}
+
+/* ======================
+   SOCIAL
+====================== */
+
+.social-grid{
+
+    margin-top:30px;
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+}
+
+.social-card{
+
+    text-decoration:none;
+    color:#fff;
+
+    padding:30px;
+
+    border-radius:24px;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.3s;
+}
+
+.social-card:hover{
+
+    transform:translateY(-6px);
+
+    background:rgba(255,255,255,.07);
+}
+
+.social-card h3{
+
+    font-family:'Fredoka',sans-serif;
+    margin-bottom:10px;
+}
+
+/* ======================
+   FOOTER
+====================== */
+
+footer{
+
+    padding:30px;
+    text-align:center;
+
+    color:#aaa;
+}
+
+/* ======================
+   MOBILE
+====================== */
+
+@media(max-width:950px){
+
+    .hero{
+        grid-template-columns:1fr;
     }
 
-    :root {
-      /* ดูดสีจากภาพ 2 เป็นหลัก */
-      --primary: #00e5ff;
-      --secondary: #ff00d4;
-      --third: #cc00ff; /* เพิ่มสีม่วง */
-
-      /* โทนสีขาวหลัก */
-      --bg: #ffffff;
-      --text: #333333;
-      --text-white: #f4f4f4;
-
-      --glass-white: rgba(255, 255, 255, 0.7);
-      --glass-white-thick: rgba(255, 255, 255, 0.9);
-      --border-light: rgba(0, 0, 0, 0.08);
-
-      --font-main: 'Mitr', sans-serif;
-      --font-header: 'Itim', cursive;
+    nav{
+        top:130px;
     }
 
-    body {
-      font-family: var(--font-main);
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
+    .nav-wrap{
+
+        flex-direction:column;
+        gap:18px;
     }
 
-    /* กราฟิกพื้นหลัง: ปรับ radial gradient และ grid บนพื้นขาว */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(circle at top left, rgba(255, 0, 212, 0.06), transparent 25%),
-        radial-gradient(circle at bottom right, rgba(0, 229, 255, 0.04), transparent 30%);
-      z-index: -2;
+    .join-banner{
+
+        flex-direction:column;
+        align-items:flex-start;
     }
 
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
-      background-size: 40px 40px;
-      z-index: -1;
+    section{
+        padding-top:320px;
     }
+}
 
-    /* NAVBAR: ขาวกึ่งโปร่งใส และเส้นขอบสีดูด */
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 999;
-      backdrop-filter: blur(12px);
-      background: var(--glass-white);
-      border-bottom: 2px solid;
-      border-image: linear-gradient(135deg, var(--primary), var(--secondary)) 1;
-    }
-
-    .nav-container {
-      max-width: 1300px;
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 24px;
-    }
-
-    /* โลโก้ใหม่ที่แก้เป็น Vtuberpluz (V และ p ใหญ่) ในบรรทัดเดียว พร้อมสไตล์เฟรนลี่ */
-    .logo-new {
-      font-family: var(--font-header);
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--text-white);
-      text-shadow:
-        1px 1px 0px var(--primary),
-        -1px -1px 0px var(--third),
-        0 0 10px rgba(0, 0, 0, 0.2);
-      letter-spacing: 1px;
-      background: linear-gradient(135deg, var(--primary), var(--third), var(--secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      padding: 5px 10px;
-    }
-
-    .logo-new span.v_main { font-weight: 900; -webkit-text-fill-color: initial; color: #fff; background: none; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
-    .logo-new span.p_main { font-weight: 900; -webkit-text-fill-color: initial; color: #fff; background: none; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
-    .logo-new span.p_p { color: var(--secondary); text-shadow: none; }
-
-    .nav-links {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .nav-links button {
-      background: transparent;
-      border: 1px solid var(--border-light);
-      color: var(--text);
-      padding: 10px 16px;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: 0.3s;
-      font-family: var(--font-main);
-      font-weight: 400;
-    }
-
-    .nav-links button:hover,
-    .nav-links button.active {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: #000;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-      transform: translateY(-2px);
-      font-weight: 700;
-    }
-
-    /* SECTION GENERAL */
-    section {
-      min-height: 100vh;
-      padding: 130px 24px 80px;
-      display: none;
-      animation: fade 0.5s ease;
-    }
-
-    section.active { display: block; }
-
-    @keyframes fade {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    /* HOME TAB STRUCTURING */
-    #home .container {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
-
-    /* HERO: ข้อความต้อนรับและปุ่มชวนจอย แบบ sticky ใต้ Navbar */
-    .hero-sticky {
-      position: sticky;
-      top: 90px; /* ใต้ navbar */
-      z-index: 90;
-      background: var(--glass-white-thick);
-      padding: 25px;
-      border-radius: 25px;
-      text-align: center;
-      margin-bottom: 30px;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-      border: 1px solid var(--border-light);
-    }
-
-    .hero-sticky h1 {
-      font-family: var(--font-header);
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      color: #000;
-      line-height: 1.1;
-      margin-bottom: 10px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .hero-sticky p {
-      color: #666;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-
-    /* STORY BOX: ไม่ sticky */
-    .story-box-wrap {
-      margin-bottom: 40px;
-    }
-
-    .glass-card {
-      background: var(--glass-white-thick);
-      border: 1px solid var(--border-light);
-      border-radius: 25px;
-      padding: 32px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    }
-
-    .story-box { line-height: 1.8; font-size: 1.05rem; color: #444; }
-    .story-box h2 { margin-bottom: 18px; font-size: 1.8rem; font-family: var(--font-header); color: #000; }
-    .story-box br + p { margin-top: 15px; }
-
-    /* RECOMMENDED AREA: หนาตา เลียนแบบ image 2 */
-    .recommended-area {
-      margin-bottom: 50px;
-    }
-
-    .section-title-cute {
-      font-family: var(--font-header);
-      font-size: 2rem;
-      color: #000;
-      margin-bottom: 25px;
-      text-align: center;
-    }
-
-    .profile-grid-new {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 24px;
-    }
-
-    /* PROFILE CARD: เลียนแบบ image 2 */
-    .profile-card-new {
-      border-radius: 20px;
-      overflow: hidden;
-      background: var(--glass-white);
-      border: 1px solid var(--border-light);
-      transition: transform 0.3s, box-shadow 0.3s;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.04);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .profile-card-new:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-      border-color: rgba(0, 0, 0, 0.1);
-    }
-
-    .profile-header-new {
-      height: 160px;
-      background: linear-gradient(135deg, rgba(0, 229, 255, 0.8), rgba(255, 0, 212, 0.8));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .profile-avatar-new {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      border: 5px solid #fff;
-      background-color: #eee;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-      position: absolute;
-      top: 50px;
-    }
-
-    .profile-avatar-new img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .profile-info-new {
-      padding: 70px 22px 22px;
-      text-align: center;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .profile-info-new h3 {
-      margin-bottom: 8px;
-      color: #000;
-      font-size: 1.3rem;
-      font-family: var(--font-header);
-    }
-
-    .profile-info-new p.title {
-      color: #777;
-      font-size: 0.9rem;
-      margin-bottom: 14px;
-    }
-
-    .profile-info-new p.details {
-      color: #555;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      border-top: 1px solid var(--border-light);
-      padding-top: 10px;
-    }
-
-    /* NEON-BTN: ดูดสี */
-    .neon-btn {
-      display: inline-block;
-      padding: 14px 28px;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      text-decoration: none;
-      font-weight: 700;
-      font-family: var(--font-main);
-      color: #000;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      transition: transform 0.3s, box-shadow 0.3s;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .neon-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-    }
-
-    /* DISCORD ACCESS */
-    .agreement-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      margin-bottom: 40px;
-    }
-
-    .agreement-card {
-      padding: 28px;
-      border-radius: 20px;
-      background: var(--glass-white);
-      border: 1px solid var(--border-light);
-      transition: 0.3s;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.04);
-    }
-
-    .agreement-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--primary);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
-    }
-
-    .agreement-card h3 { color: #000; font-family: var(--font-header); margin-bottom: 14px; font-size: 1.5rem; }
-    .agreement-card p { line-height: 1.7; color: #555; }
-
-    .discord-box {
-      text-align: center;
-      padding: 45px;
-      border-radius: 25px;
-      background: var(--glass-white-thick);
-      border: 1px solid var(--border-light);
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-    }
-
-    .discord-box h2 { margin-bottom: 18px; font-size: 1.8rem; font-family: var(--font-header); color: #000; }
-
-    /* social, contact common elements */
-    .section-title-tab {
-      font-family: var(--font-header);
-      font-size: 2.2rem;
-      color: #000;
-      margin-bottom: 35px;
-      text-align: center;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 28px;
-      color: #888;
-      border-top: 1px solid var(--border-light);
-      background: #f9f9f9;
-      line-height: 1.8;
-      font-size: 0.95rem;
-    }
-
-  </style>
+</style>
 </head>
 
 <body>
-  <nav>
-    <div class="nav-container">
-      <div class="logo-new">
-        Vtuber<span>pluz</span>
-      </div>
-      <div class="nav-links">
-        <button class="tab-btn active" data-tab="home">Home</button>
-        <button class="tab-btn" data-tab="gatekeeper">Discord Access</button>
-        <button class="tab-btn" data-tab="events">Events & Contact</button>
-        <button class="tab-btn" data-tab="social">Social Links</button>
-      </div>
-    </div>
-  </nav>
 
-  <section id="home" class="active">
-    <div class="container">
-      
-      <div class="hero-sticky">
-        <h1>ยินดีต้อนรับสู่ Vtuberpluz</h1>
-        <p>Community Platform</p>
-        <a class="neon-btn goto-gatekeeper" href="#gatekeeper">
-          ชวนจอยดิสคอร์ด
-        </a>
-      </div>
+<!-- ======================
+     FLOATING JOIN BAR
+====================== -->
 
-      <div class="story-box-wrap">
-        <div class="glass-card story-box">
-          <h2>ที่มาของคอมมูนิตี้</h2>
-          <p>Vtuberpluz คือพื้นที่คอมมูนิตี้ที่ถูกสร้างขึ้นมาเพื่อเป็นศูนย์กลางในการเชื่อมต่อ สนับสนุน และเปิดโอกาสให้ผู้คนในวงการ VTuber ได้มาพบเจอกันอย่างอิสระ ไม่ว่าจะเป็น VTuber อินดี้ ทีมงานหลังบ้าน นักตัดต่อ กราฟิกดีไซเนอร์ นักวาด นักทำเพลง โปรแกรมเมอร์ ผู้จัดการโปรเจกต์ หรือแม้แต่แฟนคลับที่อยากมีส่วนร่วมในการผลักดันวงการนี้ให้เติบโตไปด้วยกัน</p>
-          <br>
-          <p>เราเชื่อว่าคอมมูนิตี้ที่ดีไม่ใช่เพียงพื้นที่พูดคุย แต่คือ "พื้นที่ที่ทุกคนสามารถสร้างโอกาสใหม่ร่วมกันได้" ไม่ว่าจะเป็นการแชร์ประสบการณ์ การหาเพื่อนร่วมทีม การโปรโมตผลงาน การร่วมสร้างอีเวนต์ หรือแม้แต่การช่วยเหลือกันในวันที่ต้องการคำแนะนำ Vtuberpluz จึงถูกออกแบบมาให้เป็นเหมือนศูนย์รวมของคนที่รักในความสร้างสรรค์ และอยากเติบโตไปพร้อมกันในโลกเสมือนจริงแห่งนี้</p>
+<div class="join-banner">
+
+    <div class="join-left">
+
+        <!-- โลโก้ -->
+        <img src="logo.png" class="join-logo">
+
+        <div class="join-text">
+
+            <h3>ยินดีต้อนรับสู่ VtuberPluz Community</h3>
+
+            <p>
+                Community สำหรับ VTuber ไทย นักวาด ทีมงาน และแฟนคลับ
+            </p>
+
         </div>
-      </div>
-
-      <div class="recommended-area">
-        <h2 class="section-title-cute">VTuber / Staff แนะนํา</h2>
-        <div class="profile-grid-new">
-          
-          <div class="profile-card-new">
-            <div class="profile-header-new">
-              <div class="profile-avatar-new">
-                <img src="path/to/oyatsu_avatar.png" alt="Avatar: Oyatsu Ch.">
-              </div>
-            </div>
-            <div class="profile-info-new">
-              <div>
-                <h3>Oyatsu Ch.</h3>
-                <p class="title">VTuber / Creator</p>
-              </div>
-              <p class="details">
-                A charming VTuber who brings smiles with adorable content and streams.
-              </p>
-            </div>
-          </div>
-
-          <div class="profile-card-new">
-            <div class="profile-header-new">
-              <div class="profile-avatar-new">
-                <img src="path/to/esra_avatar.png" alt="Avatar: Esra Ch.">
-              </div>
-            </div>
-            <div class="profile-info-new">
-              <div>
-                <h3>Esra Ch. | Euphora</h3>
-                <p class="title">VTuber / Artist</p>
-              </div>
-              <p class="details">
-                A creative artist and VTuber from Euphora, sharing unique perspectives.
-              </p>
-            </div>
-          </div>
-
-          <div class="profile-card-new">
-            <div class="profile-header-new">
-              <div class="profile-avatar-new">
-                <img src="path/to/ciel_avatar.png" alt="Avatar: CIEL Chouette Ch.">
-              </div>
-            </div>
-            <div class="profile-info-new">
-              <div>
-                <h3>CIEL Chouette Ch.</h3>
-                <p class="title">Staff / Moderator</p>
-              </div>
-              <p class="details">
-                Dedicated community staff and moderator, ensuring a safe, supportive environment.
-              </p>
-            </div>
-          </div>
-
-          </div>
-      </div>
 
     </div>
-  </section>
 
-  <footer>
-    © 2026 Vtuberpluz Community Platform<br>Official VTuber Community Hub
-  </footer>
+    <button class="join-btn">
+        Join Discord
+    </button>
 
-  <script>
-    const buttons = document.querySelectorAll('.tab-btn');
-    const sections = document.querySelectorAll('section');
+</div>
 
-    function switchTab(tabId) {
-      sections.forEach(section => { section.classList.remove('active'); });
-      buttons.forEach(button => { button.classList.remove('active'); });
-      document.getElementById(tabId).classList.add('active');
-      document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+<!-- ======================
+     NAVBAR
+====================== -->
 
-    buttons.forEach(button => {
-      button.addEventListener('click', () => { switchTab(button.dataset.tab); });
+<nav>
+
+    <div class="nav-wrap">
+
+        <div class="logo">
+
+            <!-- โลโก้ -->
+            <img src="logo.png">
+
+            <div class="logo-text">
+                Vtuber<span>Pluz</span>
+            </div>
+
+        </div>
+
+        <div class="nav-links">
+
+            <button class="tab-btn active" data-tab="home">
+                หน้าแรก
+            </button>
+
+            <button class="tab-btn" data-tab="about">
+                เกี่ยวกับ
+            </button>
+
+            <button class="tab-btn" data-tab="social">
+                Social
+            </button>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- ======================
+     HOME
+====================== -->
+
+<section id="home" class="active">
+
+<div class="container">
+
+    <div class="hero">
+
+        <!-- LEFT -->
+
+        <div class="hero-text">
+
+            <h1>
+                Hub Community
+                <span>VtuberPluz</span>
+            </h1>
+
+            <p>
+                พื้นที่รวมตัวของ VTuber ไทย นักวาด ทีมงานหลังบ้าน
+                ครีเอเตอร์ และแฟนคลับ ที่อยากสร้างคอมมูนิตี้ดี ๆ
+                เติบโตไปด้วยกันในโลกเสมือน
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="primary-btn">
+                    เข้าร่วม Community
+                </button>
+
+                <button class="secondary-btn">
+                    ดูรายละเอียด
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+
+        <div class="hero-card-wrap">
+
+            <div class="v-card">
+
+                <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=900&auto=format&fit=crop">
+
+                <h3>VTuber Creator</h3>
+
+                <p>พื้นที่สำหรับครีเอเตอร์</p>
+
+            </div>
+
+            <div class="v-card">
+
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=900&auto=format&fit=crop">
+
+                <h3>Community Event</h3>
+
+                <p>กิจกรรมและคอลแลป</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+<!-- ======================
+     ABOUT
+====================== -->
+
+<section id="about">
+
+<div class="container">
+
+    <div class="glass">
+
+        <h2>เกี่ยวกับ VtuberPluz</h2>
+
+        <p>
+            VtuberPluz คือ Community Platform ที่สร้างขึ้นเพื่อรวมผู้คน
+            ในวงการ VTuber ไทยไว้ด้วยกัน ทั้ง VTuber อินดี้ นักวาด
+            นักตัดต่อ กราฟิก โปรแกรมเมอร์ ทีมงาน และแฟนคลับ
+            ให้สามารถพบปะ พูดคุย แชร์ผลงาน และสร้างโอกาสใหม่ร่วมกัน
+        </p>
+
+    </div>
+
+</div>
+
+</section>
+
+<!-- ======================
+     SOCIAL
+====================== -->
+
+<section id="social">
+
+<div class="container">
+
+    <div class="glass">
+
+        <h2>Social Links</h2>
+
+        <div class="social-grid">
+
+            <a href="#" class="social-card">
+
+                <h3>X / Twitter</h3>
+
+                <p>@VtuberPluz</p>
+
+            </a>
+
+            <a href="#" class="social-card">
+
+                <h3>Facebook</h3>
+
+                <p>Vtuber Pluz</p>
+
+            </a>
+
+            <a href="#" class="social-card">
+
+                <h3>YouTube</h3>
+
+                <p>@VtuberPluz</p>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+<footer>
+
+© 2026 VtuberPluz Community Platform
+
+</footer>
+
+<script>
+
+const buttons = document.querySelectorAll('.tab-btn');
+const sections = document.querySelectorAll('section');
+
+function switchTab(tabId){
+
+    sections.forEach(section=>{
+        section.classList.remove('active');
     });
 
-    document.querySelectorAll('.goto-gatekeeper').forEach(element => {
-        element.addEventListener('click', (e) => {
-            e.preventDefault();
-            switchTab('gatekeeper');
-        });
+    buttons.forEach(button=>{
+        button.classList.remove('active');
     });
 
-  </script>
+    document.getElementById(tabId)
+    .classList.add('active');
+
+    document.querySelector(`[data-tab="${tabId}"]`)
+    .classList.add('active');
+
+    window.scrollTo({
+        top:0,
+        behavior:'smooth'
+    });
+}
+
+buttons.forEach(button=>{
+
+    button.addEventListener('click',()=>{
+
+        switchTab(button.dataset.tab);
+
+    });
+
+});
+
+</script>
+
 </body>
 </html>
