@@ -6,11 +6,11 @@
 
 <title>VtuberPluz | Community Platform</title>
 
+<!-- FONT -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<!-- ฟอนต์แนวน่ารัก มน อ่านง่าย -->
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -18,31 +18,25 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
+    scroll-behavior:smooth;
 }
 
 :root{
 
-    /* ดูดสีจากภาพ gradient */
-    --blue:#7aa2ff;
-    --purple:#b66dff;
-    --pink:#f48bff;
+    /* ดูดโทนสีจากภาพ */
+    --bg:#130919;
+    --bg2:#22112e;
 
-    --bg:#12091d;
-    --bg2:#1b1028;
+    --primary:#7ea1ff;
+    --secondary:#d86ee7;
 
     --white:#ffffff;
-    --text:#f3f3f3;
-    --soft:#d4d4d4;
 
     --glass:rgba(255,255,255,0.06);
-    --border:rgba(255,255,255,0.10);
+    --border:rgba(255,255,255,0.12);
 
-    --gradient:
-    linear-gradient(
-    135deg,
-    var(--blue),
-    var(--purple),
-    var(--pink));
+    --text:#f5f5f5;
+    --soft:#d6d6d6;
 
 }
 
@@ -50,22 +44,22 @@ body{
 
     font-family:'Prompt',sans-serif;
 
-    color:var(--text);
-
     background:
-    radial-gradient(circle at top left, rgba(122,162,255,.15), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(244,139,255,.14), transparent 30%),
+    radial-gradient(circle at top left, rgba(126,161,255,0.15), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(216,110,231,0.15), transparent 35%),
     linear-gradient(135deg,var(--bg2),var(--bg));
 
-    min-height:100vh;
+    color:var(--text);
+
     overflow-x:hidden;
 }
 
-/* ลายพื้นหลัง */
+/* พื้นหลัง grid */
 
 body::before{
 
     content:'';
+
     position:fixed;
     inset:0;
 
@@ -78,151 +72,73 @@ body::before{
     z-index:-2;
 }
 
-/* glow background */
+/* glow */
 
-body::after{
-
-    content:'';
+.blur1,
+.blur2{
 
     position:fixed;
-    inset:0;
-
-    background:
-    radial-gradient(circle at 20% 20%, rgba(122,162,255,.15), transparent 20%),
-    radial-gradient(circle at 80% 30%, rgba(244,139,255,.15), transparent 20%),
-    radial-gradient(circle at 50% 80%, rgba(182,109,255,.15), transparent 20%);
-
-    filter:blur(60px);
-
+    border-radius:50%;
+    filter:blur(100px);
     z-index:-1;
 }
 
-/* ======================
-   FLOATING JOIN BAR
-====================== */
+.blur1{
 
-.join-banner{
+    width:300px;
+    height:300px;
 
-    position:fixed;
+    background:#7ea1ff;
 
-    top:18px;
-    left:50%;
+    top:-80px;
+    left:-80px;
 
-    transform:translateX(-50%);
-
-    width:min(95%, 980px);
-
-    z-index:9999;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
-
-    padding:14px 18px;
-
-    border-radius:24px;
-
-    backdrop-filter:blur(16px);
-
-    background:rgba(17,10,28,.72);
-
-    border:1px solid rgba(255,255,255,.10);
-
-    box-shadow:
-    0 10px 40px rgba(0,0,0,.25);
+    opacity:0.22;
 }
 
-.join-left{
+.blur2{
 
-    display:flex;
-    align-items:center;
-    gap:14px;
+    width:340px;
+    height:340px;
+
+    background:#d86ee7;
+
+    right:-100px;
+    bottom:-100px;
+
+    opacity:0.18;
 }
 
-.join-logo{
-
-    width:60px;
-    height:60px;
-
-    object-fit:contain;
-}
-
-.join-text h3{
-
-    font-family:'Fredoka',sans-serif;
-
-    font-size:1.1rem;
-    margin-bottom:3px;
-}
-
-.join-text p{
-
-    font-size:.9rem;
-    color:#d7d7d7;
-}
-
-.join-btn{
-
-    border:none;
-    cursor:pointer;
-
-    padding:14px 24px;
-
-    border-radius:16px;
-
-    font-family:'Fredoka',sans-serif;
-    font-weight:600;
-
-    color:#fff;
-
-    background:var(--gradient);
-
-    box-shadow:
-    0 0 25px rgba(182,109,255,.35);
-
-    transition:.25s;
-}
-
-.join-btn:hover{
-
-    transform:translateY(-3px) scale(1.02);
-}
-
-/* ======================
-   NAVBAR
-====================== */
+/* ========================= */
+/* NAVBAR */
+/* ========================= */
 
 nav{
 
     position:fixed;
-    top:110px;
-
+    top:0;
     width:100%;
+
     z-index:999;
+
+    backdrop-filter:blur(16px);
+
+    background:rgba(10,10,20,0.55);
+
+    border-bottom:1px solid rgba(255,255,255,0.06);
 }
 
-.nav-wrap{
+.nav-container{
 
-    width:min(1200px,95%);
+    max-width:1300px;
     margin:auto;
 
     display:flex;
     justify-content:space-between;
     align-items:center;
 
-    padding:18px 24px;
-
-    border-radius:28px;
-
-    background:rgba(18,9,29,.75);
-
-    backdrop-filter:blur(16px);
-
-    border:1px solid rgba(255,255,255,.08);
+    padding:14px 22px;
 }
-
-/* โลโก้ */
 
 .logo{
 
@@ -231,31 +147,34 @@ nav{
     gap:14px;
 }
 
+/* ใส่โลโก้ตรงนี้ */
+
 .logo img{
 
-    width:68px;
+    width:64px;
+    height:auto;
+
     object-fit:contain;
 }
 
 .logo-text{
 
     font-family:'Fredoka',sans-serif;
+    font-size:1.7rem;
+    font-weight:600;
 
-    font-size:1.6rem;
-    font-weight:700;
+    color:white;
 
-    color:#fff;
+    letter-spacing:1px;
 }
 
 .logo-text span{
 
-    background:var(--gradient);
+    background:linear-gradient(90deg,#7ea1ff,#d86ee7);
 
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
-
-/* menu */
 
 .nav-links{
 
@@ -266,92 +185,181 @@ nav{
 
 .nav-links button{
 
-    border:none;
-    cursor:pointer;
-
-    padding:12px 18px;
-
-    border-radius:14px;
-
     background:transparent;
 
-    color:#fff;
+    border:1px solid rgba(255,255,255,0.08);
 
-    font-family:'Fredoka',sans-serif;
-    font-size:1rem;
+    color:white;
 
-    transition:.25s;
+    padding:11px 18px;
+
+    border-radius:999px;
+
+    font-family:'Prompt',sans-serif;
+
+    cursor:pointer;
+
+    transition:0.3s;
 }
 
 .nav-links button:hover,
 .nav-links button.active{
 
-    background:var(--gradient);
+    background:linear-gradient(
+    135deg,
+    rgba(126,161,255,0.25),
+    rgba(216,110,231,0.25));
 
-    box-shadow:
-    0 0 20px rgba(182,109,255,.25);
+    border-color:rgba(255,255,255,0.2);
 
     transform:translateY(-2px);
+
+    box-shadow:
+    0 0 20px rgba(126,161,255,0.18),
+    0 0 25px rgba(216,110,231,0.12);
 }
 
-/* ======================
-   SECTION
-====================== */
+/* ========================= */
+/* FLOAT BAR */
+/* ========================= */
+
+.join-floating{
+
+    position:fixed;
+
+    left:50%;
+    bottom:28px;
+
+    transform:translateX(-50%);
+
+    z-index:998;
+
+    display:flex;
+    align-items:center;
+    gap:16px;
+
+    padding:16px 24px;
+
+    border-radius:999px;
+
+    backdrop-filter:blur(18px);
+
+    background:rgba(20,20,35,0.75);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+    0 0 20px rgba(126,161,255,0.12),
+    0 0 25px rgba(216,110,231,0.08);
+}
+
+.join-floating p{
+
+    font-size:0.95rem;
+    color:#f2f2f2;
+}
+
+.join-btn{
+
+    text-decoration:none;
+
+    background:linear-gradient(90deg,#7ea1ff,#d86ee7);
+
+    color:white;
+
+    padding:12px 18px;
+
+    border-radius:999px;
+
+    font-weight:600;
+
+    transition:0.3s;
+}
+
+.join-btn:hover{
+
+    transform:translateY(-2px) scale(1.02);
+
+    box-shadow:
+    0 0 20px rgba(126,161,255,0.3),
+    0 0 20px rgba(216,110,231,0.25);
+}
+
+/* ========================= */
+/* SECTION */
+/* ========================= */
 
 section{
 
-    padding:240px 24px 100px;
     min-height:100vh;
 
+    padding:140px 24px 120px;
+
     display:none;
+
+    animation:fade .45s ease;
 }
 
 section.active{
     display:block;
 }
 
+@keyframes fade{
+
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
 .container{
 
-    width:min(1200px,100%);
+    max-width:1200px;
     margin:auto;
 }
 
-/* ======================
-   HERO
-====================== */
+/* ========================= */
+/* HERO */
+/* ========================= */
 
 .hero{
 
     display:grid;
-    grid-template-columns:1.1fr .9fr;
-    gap:40px;
+    grid-template-columns:1.2fr 0.8fr;
+
+    gap:50px;
     align-items:center;
 }
 
-/* ซ้าย */
-
-.hero-text h1{
+.hero-left h1{
 
     font-family:'Fredoka',sans-serif;
 
     font-size:clamp(3rem,7vw,6rem);
 
-    line-height:1;
+    line-height:0.95;
 
-    margin-bottom:20px;
+    margin-bottom:24px;
+
+    color:white;
 }
 
-.hero-text h1 span{
+.hero-left h1 span{
 
-    background:var(--gradient);
+    background:linear-gradient(90deg,#7ea1ff,#d86ee7);
 
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
 
-.hero-text p{
+.hero-left p{
 
-    color:#d6d6d6;
+    color:var(--soft);
 
     line-height:1.9;
 
@@ -363,226 +371,258 @@ section.active{
 .hero-buttons{
 
     display:flex;
-    gap:14px;
+    gap:16px;
     flex-wrap:wrap;
 }
 
 .primary-btn{
 
-    border:none;
-    cursor:pointer;
+    text-decoration:none;
 
-    padding:16px 26px;
+    background:linear-gradient(90deg,#7ea1ff,#d86ee7);
 
-    border-radius:18px;
+    color:white;
 
-    color:#fff;
+    padding:15px 24px;
 
-    font-family:'Fredoka',sans-serif;
-    font-size:1rem;
+    border-radius:999px;
+
     font-weight:600;
 
-    background:var(--gradient);
-
-    transition:.25s;
+    transition:0.3s;
 }
 
 .primary-btn:hover{
 
-    transform:translateY(-4px);
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 0 25px rgba(126,161,255,0.25),
+    0 0 25px rgba(216,110,231,0.2);
 }
 
 .secondary-btn{
 
-    border:1px solid rgba(255,255,255,.1);
+    text-decoration:none;
 
-    padding:16px 24px;
+    color:white;
 
-    border-radius:18px;
+    border:1px solid rgba(255,255,255,0.12);
 
-    background:rgba(255,255,255,.04);
+    padding:15px 24px;
 
-    color:#fff;
+    border-radius:999px;
 
-    cursor:pointer;
-
-    font-family:'Fredoka',sans-serif;
+    transition:0.3s;
 }
 
-/* ขวา */
+.secondary-btn:hover{
 
-.hero-card-wrap{
-
-    display:flex;
-    gap:18px;
-    justify-content:center;
-    flex-wrap:wrap;
+    background:rgba(255,255,255,0.05);
 }
 
-.v-card{
+/* ========================= */
+/* CARD PREVIEW */
+/* ========================= */
 
-    width:190px;
+.preview-box{
 
-    padding:14px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
 
-    border-radius:28px;
-
-    background:rgba(255,255,255,.05);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    backdrop-filter:blur(16px);
-
-    transition:.3s;
+    gap:20px;
 }
 
-.v-card:hover{
+.preview-card{
 
-    transform:translateY(-8px);
-}
+    background:rgba(255,255,255,0.05);
 
-.v-card img{
-
-    width:100%;
-    height:240px;
-
-    object-fit:cover;
-
-    border-radius:20px;
-}
-
-.v-card h3{
-
-    margin-top:14px;
-
-    font-family:'Fredoka',sans-serif;
-
-    font-size:1.15rem;
-}
-
-.v-card p{
-
-    color:#cfcfcf;
-    margin-top:6px;
-}
-
-/* ======================
-   GLASS
-====================== */
-
-.glass{
-
-    margin-top:70px;
-
-    padding:36px;
+    border:1px solid rgba(255,255,255,0.08);
 
     border-radius:30px;
 
-    background:rgba(255,255,255,.05);
-
-    border:1px solid rgba(255,255,255,.08);
+    overflow:hidden;
 
     backdrop-filter:blur(16px);
+
+    transition:0.3s;
 }
 
-.glass h2{
+.preview-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:
+    0 0 20px rgba(126,161,255,0.15),
+    0 0 25px rgba(216,110,231,0.12);
+}
+
+.preview-image{
+
+    height:220px;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(126,161,255,0.25),
+    rgba(216,110,231,0.25));
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:4rem;
+}
+
+.preview-content{
+
+    padding:22px;
+}
+
+.preview-content h3{
+
+    margin-bottom:10px;
+
+    font-size:1.3rem;
+
+    color:white;
+}
+
+.preview-content p{
+
+    color:#d4d4d4;
+
+    line-height:1.8;
+}
+
+/* ========================= */
+/* GLASS */
+/* ========================= */
+
+.glass{
+
+    background:rgba(255,255,255,0.05);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    border-radius:30px;
+
+    padding:34px;
+
+    backdrop-filter:blur(18px);
+}
+
+.section-title{
 
     font-family:'Fredoka',sans-serif;
 
-    font-size:2rem;
+    font-size:2.5rem;
 
-    margin-bottom:20px;
+    margin-bottom:24px;
 }
 
-.glass p{
-
-    line-height:2;
-    color:#e0e0e0;
-}
-
-/* ======================
-   SOCIAL
-====================== */
+/* ========================= */
+/* SOCIAL */
+/* ========================= */
 
 .social-grid{
 
-    margin-top:30px;
-
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
 
-    gap:20px;
+    gap:22px;
 }
 
 .social-card{
 
     text-decoration:none;
-    color:#fff;
 
-    padding:30px;
+    color:white;
 
-    border-radius:24px;
+    background:rgba(255,255,255,0.05);
 
-    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,0.08);
 
-    border:1px solid rgba(255,255,255,.08);
+    border-radius:28px;
 
-    transition:.3s;
+    padding:34px 24px;
+
+    transition:0.3s;
 }
 
 .social-card:hover{
 
     transform:translateY(-6px);
 
-    background:rgba(255,255,255,.07);
+    box-shadow:
+    0 0 20px rgba(126,161,255,0.14),
+    0 0 24px rgba(216,110,231,0.10);
 }
 
 .social-card h3{
 
-    font-family:'Fredoka',sans-serif;
-    margin-bottom:10px;
+    margin-top:18px;
+    margin-bottom:8px;
 }
 
-/* ======================
-   FOOTER
-====================== */
+/* ========================= */
+/* FOOTER */
+/* ========================= */
 
 footer{
 
-    padding:30px;
     text-align:center;
 
-    color:#aaa;
+    padding:40px 24px;
+
+    color:#bfbfbf;
+
+    border-top:1px solid rgba(255,255,255,0.08);
 }
 
-/* ======================
-   MOBILE
-====================== */
+/* ========================= */
+/* MOBILE */
+/* ========================= */
 
-@media(max-width:950px){
+@media(max-width:980px){
 
     .hero{
+
         grid-template-columns:1fr;
     }
 
-    nav{
-        top:130px;
-    }
+    .preview-box{
 
-    .nav-wrap{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:768px){
+
+    .nav-container{
 
         flex-direction:column;
-        gap:18px;
-    }
-
-    .join-banner{
-
-        flex-direction:column;
-        align-items:flex-start;
+        gap:16px;
     }
 
     section{
-        padding-top:320px;
+
+        padding-top:190px;
+    }
+
+    .preview-box{
+
+        grid-template-columns:1fr;
+    }
+
+    .join-floating{
+
+        width:92%;
+
+        padding:14px 18px;
+
+        flex-direction:column;
+        text-align:center;
     }
 }
 
@@ -591,77 +631,68 @@ footer{
 
 <body>
 
-<!-- ======================
-     FLOATING JOIN BAR
-====================== -->
+<div class="blur1"></div>
+<div class="blur2"></div>
 
-<div class="join-banner">
-
-    <div class="join-left">
-
-        <!-- โลโก้ -->
-        <img src="logo.png" class="join-logo">
-
-        <div class="join-text">
-
-            <h3>ยินดีต้อนรับสู่ VtuberPluz Community</h3>
-
-            <p>
-                Community สำหรับ VTuber ไทย นักวาด ทีมงาน และแฟนคลับ
-            </p>
-
-        </div>
-
-    </div>
-
-    <button class="join-btn">
-        Join Discord
-    </button>
-
-</div>
-
-<!-- ======================
-     NAVBAR
-====================== -->
+<!-- NAV -->
 
 <nav>
 
-    <div class="nav-wrap">
+<div class="nav-container">
 
-        <div class="logo">
+    <div class="logo">
 
-            <!-- โลโก้ -->
-            <img src="logo.png">
+        <!-- ใส่โลโก้ -->
+        <img src="logo.png" alt="VtuberPluz Logo">
 
-            <div class="logo-text">
-                Vtuber<span>Pluz</span>
-            </div>
-
-        </div>
-
-        <div class="nav-links">
-
-            <button class="tab-btn active" data-tab="home">
-                หน้าแรก
-            </button>
-
-            <button class="tab-btn" data-tab="about">
-                เกี่ยวกับ
-            </button>
-
-            <button class="tab-btn" data-tab="social">
-                Social
-            </button>
-
+        <div class="logo-text">
+            Vtuber<span>Pluz</span>
         </div>
 
     </div>
 
+    <div class="nav-links">
+
+        <button class="tab-btn active" data-tab="home">
+            หน้าหลัก
+        </button>
+
+        <button class="tab-btn" data-tab="about">
+            เกี่ยวกับ
+        </button>
+
+        <button class="tab-btn" data-tab="community">
+            Community
+        </button>
+
+        <button class="tab-btn" data-tab="social">
+            Social
+        </button>
+
+    </div>
+
+</div>
+
 </nav>
 
-<!-- ======================
-     HOME
-====================== -->
+<!-- FLOAT JOIN -->
+
+<div class="join-floating">
+
+    <p>
+        ✨ เข้าร่วมคอมมู VTuber ไทย หาเพื่อน ทีมงาน และคอนเนกชันใหม่ ๆ ได้เลย
+    </p>
+
+    <a href="https://discord.gg/vtuberpluz"
+       class="join-btn"
+       target="_blank">
+
+       Join Discord
+    </a>
+
+</div>
+
+<!-- HOME -->
 
 <section id="home" class="active">
 
@@ -669,56 +700,76 @@ footer{
 
     <div class="hero">
 
-        <!-- LEFT -->
-
-        <div class="hero-text">
+        <div class="hero-left">
 
             <h1>
-                Hub Community
+                Welcome to
                 <span>VtuberPluz</span>
             </h1>
 
             <p>
-                พื้นที่รวมตัวของ VTuber ไทย นักวาด ทีมงานหลังบ้าน
-                ครีเอเตอร์ และแฟนคลับ ที่อยากสร้างคอมมูนิตี้ดี ๆ
-                เติบโตไปด้วยกันในโลกเสมือน
+                Community Platform สำหรับ VTuber คนดู ทีมงาน
+                นักวาด กราฟิก นักตัดต่อ และคนที่รักในวงการ VTuber
+                พื้นที่ที่รวมคนสร้างสรรค์ไว้ในที่เดียว
+                พร้อมเปิดโอกาสใหม่ ๆ ให้ทุกคนได้เติบโตไปด้วยกัน
             </p>
 
             <div class="hero-buttons">
 
-                <button class="primary-btn">
-                    เข้าร่วม Community
-                </button>
+                <a href="https://discord.gg/vtuberpluz"
+                   class="primary-btn"
+                   target="_blank">
 
-                <button class="secondary-btn">
-                    ดูรายละเอียด
-                </button>
+                   เข้าร่วม Community
+                </a>
+
+                <a href="#"
+                   class="secondary-btn">
+
+                   ดูรายละเอียด
+                </a>
 
             </div>
 
         </div>
 
-        <!-- RIGHT -->
+        <div class="preview-box">
 
-        <div class="hero-card-wrap">
+            <div class="preview-card">
 
-            <div class="v-card">
+                <div class="preview-image">
+                    🎤
+                </div>
 
-                <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=900&auto=format&fit=crop">
+                <div class="preview-content">
 
-                <h3>VTuber Creator</h3>
+                    <h3>VTuber Community</h3>
 
-                <p>พื้นที่สำหรับครีเอเตอร์</p>
+                    <p>
+                        พื้นที่รวมคนในวงการ VTuber
+                        ทั้งสายครีเอเตอร์และแฟนคลับ
+                    </p>
+
+                </div>
 
             </div>
 
-            <div class="v-card">
+            <div class="preview-card">
 
-                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=900&auto=format&fit=crop">
+                <div class="preview-image">
+                    ✨
+                </div>
 
-                <h3>Community Event</h3>
+                <div class="preview-content">
 
-                <p>กิจกรรมและคอลแลป</p>
+                    <h3>Creative Space</h3>
+
+                    <p>
+                        แชร์ผลงาน หาเพื่อนร่วมทีม
+                        และสร้างโปรเจกต์ใหม่ร่วมกัน
+                    </p>
+
+                </div>
 
             </div>
 
@@ -730,9 +781,7 @@ footer{
 
 </section>
 
-<!-- ======================
-     ABOUT
-====================== -->
+<!-- ABOUT -->
 
 <section id="about">
 
@@ -740,13 +789,23 @@ footer{
 
     <div class="glass">
 
-        <h2>เกี่ยวกับ VtuberPluz</h2>
+        <h1 class="section-title">
+            เกี่ยวกับ VtuberPluz
+        </h1>
 
-        <p>
-            VtuberPluz คือ Community Platform ที่สร้างขึ้นเพื่อรวมผู้คน
-            ในวงการ VTuber ไทยไว้ด้วยกัน ทั้ง VTuber อินดี้ นักวาด
-            นักตัดต่อ กราฟิก โปรแกรมเมอร์ ทีมงาน และแฟนคลับ
-            ให้สามารถพบปะ พูดคุย แชร์ผลงาน และสร้างโอกาสใหม่ร่วมกัน
+        <p style="line-height:2; color:#ddd;">
+
+            VtuberPluz ถูกสร้างขึ้นเพื่อเป็นศูนย์กลางของคนในวงการ VTuber
+            ทั้งสายครีเอเตอร์ ทีมงาน และผู้ชม
+            ให้สามารถมาพบปะ พูดคุย แชร์ประสบการณ์
+            และสร้างโอกาสใหม่ ๆ ร่วมกันได้อย่างอิสระ
+
+            <br><br>
+
+            เราให้ความสำคัญกับความเป็นมิตร
+            ความสร้างสรรค์ และการสนับสนุนซึ่งกันและกัน
+            เพื่อให้คอมมูนิตี้นี้เป็นพื้นที่ที่ทุกคนรู้สึกสบายใจ
+            และสามารถเติบโตไปพร้อมกันได้จริง
         </p>
 
     </div>
@@ -755,45 +814,80 @@ footer{
 
 </section>
 
-<!-- ======================
-     SOCIAL
-====================== -->
+<!-- COMMUNITY -->
 
-<section id="social">
+<section id="community">
 
 <div class="container">
 
     <div class="glass">
 
-        <h2>Social Links</h2>
+        <h1 class="section-title">
+            Community Rules
+        </h1>
 
-        <div class="social-grid">
+        <p style="line-height:2; color:#ddd;">
 
-            <a href="#" class="social-card">
+            • เคารพสมาชิกทุกคนในคอมมูนิตี้ <br>
+            • หลีกเลี่ยงการเปิดเผยข้อมูลส่วนตัว <br>
+            • ไม่สร้างความขัดแย้ง Toxic หรือ Drama <br>
+            • สนับสนุนผลงานของกันและกัน <br>
+            • รักษาบรรยากาศที่เป็นมิตรและปลอดภัย
+        </p>
 
-                <h3>X / Twitter</h3>
+    </div>
 
-                <p>@VtuberPluz</p>
+</div>
 
-            </a>
+</section>
 
-            <a href="#" class="social-card">
+<!-- SOCIAL -->
 
-                <h3>Facebook</h3>
+<section id="social">
 
-                <p>Vtuber Pluz</p>
+<div class="container">
 
-            </a>
+    <h1 class="section-title">
+        Social Links
+    </h1>
 
-            <a href="#" class="social-card">
+    <div class="social-grid">
 
-                <h3>YouTube</h3>
+        <a href="https://x.com/VtuberPluz"
+           class="social-card"
+           target="_blank">
 
-                <p>@VtuberPluz</p>
+            <div style="font-size:3rem;">𝕏</div>
 
-            </a>
+            <h3>X / Twitter</h3>
 
-        </div>
+            <p>@VtuberPluz</p>
+
+        </a>
+
+        <a href="https://www.youtube.com/@VtuberPluz"
+           class="social-card"
+           target="_blank">
+
+            <div style="font-size:3rem;">▶</div>
+
+            <h3>YouTube</h3>
+
+            <p>@VtuberPluz</p>
+
+        </a>
+
+        <a href="https://discord.gg/vtuberpluz"
+           class="social-card"
+           target="_blank">
+
+            <div style="font-size:3rem;">💬</div>
+
+            <h3>Discord</h3>
+
+            <p>Join Community</p>
+
+        </a>
 
     </div>
 
